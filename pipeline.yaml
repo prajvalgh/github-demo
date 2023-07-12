@@ -7,13 +7,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: UseTerraform@1
+- task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
     command: 'init'
     workingDirectory: '$(Build.SourcesDirectory)'
 
-- task: UseTerraform@1
+- task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
     command: 'validate'
