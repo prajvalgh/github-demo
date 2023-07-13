@@ -1,21 +1,18 @@
-trigger:
-  branches:
-    include:
-      - main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    workingDirectory: '$(Build.SourcesDirectory)'
-
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'azurerm'
-    command: 'validate'
-    workingDirectory: '$(Build.SourcesDirectory)'
+name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
+ 
+trigger: none
+ 
+pr: none
+       
+stages :
+  - stage: validate
+    jobs:
+    - job: validate
+      continueOnError: false
+      steps:
+      - task: TerraformTaskV1@0
+        displayName: 'validate'
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
 
